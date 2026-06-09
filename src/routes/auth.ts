@@ -54,7 +54,7 @@ app.post('/login', sValidator("json", loginSchema), async (c) => {
   }  
 
   const now = Math.floor(Date.now() / 1000);
-  const token = await sign({ exp: now + JWT_EXTRATION_SECONDS, sub: existingUser.id, email: existingUser.email }, env.JWT_SECRET);
+  const token = await sign({ exp: now + JWT_EXTRATION_SECONDS, sub: existingUser.id, email: existingUser.email }, env.JWT_SECRET, "HS256");
 
   return c.json({ message: 'Login successful', token });
  
