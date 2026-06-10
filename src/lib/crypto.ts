@@ -15,9 +15,13 @@ export async function verifyPassword(password: string, hash: string) {
 
 export function generateApiKey() {
     const raw = randomBytes(32).toString("base64");
-    const hash = createHash("sha256").update(raw).digest("hex"); 
+    const hash =  hashApiKey(raw); 
     const prefix = raw.slice(0, 8);
     return { raw, hash, prefix };
+}
+
+export  function hashApiKey(apiKey: string) {
+    return createHash("sha256").update(apiKey).digest("hex");
 }
 
 async function scryptAsync(password: string, salt: string) {
